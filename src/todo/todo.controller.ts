@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 import {
   Controller,
   Get,
@@ -7,6 +7,7 @@ import {
   Delete,
   Patch,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { TodoListDto } from './dtos/todo.dto';
 // import { TodoService } from './todo.service';
@@ -17,6 +18,7 @@ import { UpdateTodoCommand } from './commands/update-todo.command';
 import { CreateTodoCommand } from './commands/create-todo.command';
 import { GetTodoQuery } from './queries/get-todo.query';
 import { GetTodosQuery } from './queries/get-all-todos.query';
+import { AuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('todo')
 export class TodoController {
@@ -26,6 +28,7 @@ export class TodoController {
         private readonly queryBus: QueryBus,
       ) {}
 
+    @UseGuards(AuthGuard)
     @Get("/all")
      async findAllTodo() {
         const command = new GetTodosQuery();

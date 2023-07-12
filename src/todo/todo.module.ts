@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 import { Module } from '@nestjs/common';
 import { TodoController } from './todo.controller';
 // import { TodoService } from './todo.service';
@@ -10,15 +10,17 @@ import { DeleteTodoHandler } from './commands/delete-todo.handler';
 import { GetTodoHandler } from './queries/get-todo.handler';
 import { GetTodosHandler } from './queries/get-all-todos.handler';
 import { CqrsModule } from '@nestjs/cqrs';
+import { UserModule } from 'src/user/user.module';
+import { UserService } from 'src/user/user.service';
 
 @Module({
   imports : [TypeOrmModule.forFeature([Todo]),
-            CqrsModule,],
+            CqrsModule],
   controllers: [TodoController],
   providers: [CreateTodoHandler,
               UpdateTodoHandler,
               DeleteTodoHandler,
               GetTodoHandler,
-              GetTodosHandler,]
+              GetTodosHandler]
 })
 export class TodoModule {}
